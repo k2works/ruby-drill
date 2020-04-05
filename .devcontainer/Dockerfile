@@ -20,7 +20,7 @@ ARG USER_GID=$USER_UID
 RUN apt-get update \
     && apt-get -y install --no-install-recommends apt-utils dialog 2>&1 \
     # Verify git, process tools installed
-    && apt-get -y install git openssh-client less iproute2 procps lsb-release \
+    && apt-get -y install git openssh-client less iproute2 procps lsb-release vim\
     #
     # Install ruby-debug-ide and debase
     && gem install ruby-debug-ide \
@@ -38,6 +38,12 @@ RUN apt-get update \
     && apt-get autoremove -y \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
+
+## Japanese
+RUN apt-get update \
+    && apt-get install -y locales \
+    && locale-gen ja_JP.UTF-8 \
+    && echo "export LANG=ja_JP.UTF-8" >> ~/.bashrc
 
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=dialog
