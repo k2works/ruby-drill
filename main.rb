@@ -54,3 +54,51 @@ def judge_sign(n)
   return 'その値は負です。' if n.negative?
   return 'その値は0です。' if n.zero?
 end
+
+# 繰り返し
+
+## 1からnまでの整数の総和を求める
+class TestSum1ToN < Minitest::Test
+  def test_sum_1_to_n_while
+    assert_equal(15, sum_1_to_n_while(5))
+  end
+
+  def test_sum_1_to_n_for
+    assert_equal(15, sum_1_to_n_for(5))
+  end
+
+  def test_sum_gauss
+    assert_equal(15, sum_gauss(5))
+  end
+end
+
+# while文による繰り返し
+#
+# >>> sum_1_to_n_while(5)
+# ==> 15
+def sum_1_to_n_while(n)
+  sum = 0
+  i = 1
+  while i <= n
+    sum += i
+    i += 1
+  end
+  sum
+end
+
+# for文による繰り返し
+#
+# >>> sum_1_to_n_for(5)
+# ===> 15
+def sum_1_to_n_for(n)
+  sum = 0
+  (1..n).each do |i|
+    sum += i
+  end
+  sum
+end
+
+# ガウスの方法
+def sum_gauss(n)
+  n * (n + 1) / 2
+end
