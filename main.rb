@@ -40,8 +40,8 @@ end
 class TestJudgeSign < Minitest::Test
   # 読み込んだ整数値の符号を表示
   #
-  # >>> judge_sign(17)
-  # ==> 'その値は正です。'
+  # >> judge_sign(17)
+  # => 'その値は正です。'
   def test_judge_sign
     assert_equal 'その値は正です。', judge_sign(17)
     assert_equal 'その値は負です。', judge_sign(-5)
@@ -88,8 +88,8 @@ end
 
 # for文による繰り返し
 #
-# >>> sum_1_to_n_for(5)
-# ===> 15
+# >> sum_1_to_n_for(5)
+# => 15
 def sum_1_to_n_for(n)
   sum = 0
   (1..n).each do |i|
@@ -99,6 +99,154 @@ def sum_1_to_n_for(n)
 end
 
 # ガウスの方法
+#
+# >> sum_gauss(5)
+# => 15
 def sum_gauss(n)
   n * (n + 1) / 2
+end
+
+# 2値のソートと2値の交換
+class TestSum < Minitest::Test
+  def test_sum
+    assert_equal 33, sum(3, 8)
+    assert_equal 33, sum(8, 3)
+  end
+end
+
+# aからbまでの総和を求める
+#
+# >> sum(3, 8)
+# => 33
+def sum(a, b)
+  a, b = b, a if a > b
+  sum = 0
+  (a..b).each do |i|
+    sum += i
+  end
+  sum
+end
+
+# 繰り返しの過程における条件判定（その１）
+class TestSumVerbose < Minitest::Test
+  def test_sum_verbose_1
+    assert_equal '3 = 3', sum_verbose_1(3, 3)
+    assert_equal '3 + 4 = 7', sum_verbose_1(3, 4)
+    assert_equal '3 + 4 + 5 + 6 + 7 = 25', sum_verbose_1(3, 7)
+  end
+
+  def test_sum_verbose_2
+    assert_equal '3 = 3', sum_verbose_2(3, 3)
+    assert_equal '3 + 4 = 7', sum_verbose_2(3, 4)
+    assert_equal '3 + 4 + 5 + 6 + 7 = 25', sum_verbose_2(3, 7)
+  end
+end
+
+# aからbまでの総和を求める
+#
+# >> sum_verbose_1(3, 4)
+# => '3 + 4 = 7'
+def sum_verbose_1(a, b)
+  result = ''
+  a, b = b, a if a > b
+  sum = 0
+  (a..b).each do |i|
+    result += if i < b
+                "#{i} + "
+              else
+                "#{i} ="
+              end
+    sum += i
+  end
+  result += " #{sum}"
+end
+
+# aからbまでの総和を求める
+#
+# >> sum_verbose_2(3, 4)
+# => '3 + 4 = 7'
+def sum_verbose_2(a, b)
+  result = ''
+  a, b = b, a if a > b
+  sum = 0
+  (a...b).each do |i|
+    result += "#{i} + "
+    sum += i
+  end
+  sum += b
+  result += "#{b} = #{sum}"
+end
+
+# 繰り返しの過程における条件判定（その２）
+class TestAlternative < Minitest::Test
+  def test_alternative_1
+    assert_equal '+-+-+-+-+-+-', alternative_1(12)
+  end
+
+  def test_alternative_2
+    assert_equal '+-+-+-+-+-+-', alternative_2(12)
+  end
+end
+
+# 記号文字+と-を交互に表示（その１）
+#
+# >> alternative_1(12)
+# => '+-+-+-+-+-+-'
+def alternative_1(n)
+  result = ''
+  (1..n).each do |i|
+    result += if i.even?
+                '-'
+              else
+                '+'
+              end
+  end
+  result
+end
+
+# 記号文字+と-を交互に表示（その２）
+#
+# >> alternative_2(12)
+# => '+-+-+-+-+-+-'
+def alternative_2(n)
+  result = ''
+  (1..n / 2).each do |_|
+    result += '+-'
+  end
+  result
+end
+
+# 繰り返しの過程における条件判定（その３）
+class TestPrintStars < Minitest::Test
+  def test_print_stars_1
+    assert_equal '*****\n*****\n****\n', print_stars_1(14, 5)
+    assert_equal '*****\n*****\n*****\n', print_stars_1(15, 5)
+  end
+
+  def test_print_stars_2
+    assert_equal '*****\n*****\n****\n', print_stars_2(14, 5)
+    assert_equal '*****\n*****\n*****\n', print_stars_2(15, 5)
+  end
+end
+
+# n個の記号文字*をw個ごとに改行しながら表示（その１）
+def print_stars_1(n, w)
+  result = ''
+  (1..n).each do |i|
+    result += '*'
+    result += '\n' if (i % w).zero?
+  end
+  result += '\n' unless (n % w).zero?
+  result
+end
+
+# n個の記号文字*をw個ごとに改行しながら表示（その２）
+def print_stars_2(n, w)
+  result = ''
+  (1..n / w).each do |_i|
+    result += '*' * w + '\n'
+  end
+  rest = n % w
+  result += '*' * rest + '\n' unless rest.zero?
+  result
 end
