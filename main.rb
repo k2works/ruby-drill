@@ -250,3 +250,30 @@ def print_stars_2(n, w)
   result += '*' * rest + '\n' unless rest.zero?
   result
 end
+
+# 正の値の読み込み
+class TestSum1ToPositive < Minitest::Test
+  def test_sum_1_to_positive
+    assert_equal 55, sum_1_to_positive(10)
+    assert_raises RuntimeError do
+      sum_1_to_positive(-6)
+    end
+    assert_raises RuntimeError do
+      sum_1_to_positive(0)
+    end
+  end
+end
+
+# 1からnまでの総和を求めるのに正の整数値を読み込む
+#
+# >> sum_1_to_positive(10)
+# => 55
+def sum_1_to_positive(n)
+  raise if n <= 0
+
+  sum = 0
+  (1..n).each do |i|
+    sum += i
+  end
+  sum
+end
