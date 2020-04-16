@@ -277,3 +277,63 @@ def sum_1_to_positive(n)
   end
   sum
 end
+
+# 辺と面積が整数値である長方形
+class TestRectangle < Minitest::Test
+  def test_rectangle
+    assert_equal '1x32 2x16 4x8 ', rectangle(32)
+  end
+end
+
+# 縦横が整数で面積がareaの長方形の辺の長さを列挙
+#
+# >> rectangle(32)
+# => '1x32 2x16 4x8 '
+def rectangle(area)
+  result = ''
+  (1..area).each do |i|
+    break if i * i > area
+
+    next if area % i != 0
+
+    div = area / i
+    result += "#{i}x#{div} "
+  end
+  result
+end
+
+class TestSkip < Minitest::Test
+  def test_skip1
+    assert_equal '1 2 3 4 5 6 7 9 10 11 12', skip1
+  end
+
+  def test_skip2
+    assert_equal '1 2 3 4 5 6 7 9 10 11 12', skip2
+  end
+end
+
+# 1から12までを8をスキップして繰り返す（その１）
+#
+# >> skip1
+# => '1 2 3 4 5 6 7 9 10 11 12'
+def skip1
+  result = ''
+  (1..12).each do |i|
+    next if i == 8
+
+    result += "#{i} "
+  end
+  result.strip
+end
+
+# 1から12までを8をスキップして繰り返す（その２）
+#
+# >> skip2
+# => '1 2 3 4 5 6 7 9 10 11 12'
+def skip2
+  result = ''
+  result += (1..7).map(&:to_i).join(' ')
+  result += ' '
+  result += (9..12).map(&:to_s).join(' ')
+  result.strip
+end
