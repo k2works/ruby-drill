@@ -377,3 +377,64 @@ def multiplication_table
   result += "\n"
   result
 end
+
+# 直角三角形の表示
+
+class TestTraiangle < Minitest::Test
+  def test_traiangle_lb
+    expect = <<~"EOS"
+      *
+      **
+      ***
+      ****
+      *****
+    EOS
+
+    assert_equal expect, traiangle_lb(5)
+  end
+
+  def test_traiangle_rg
+    expect = <<~"EOS"
+          *
+         **
+        ***
+       ****
+      *****
+    EOS
+
+    assert_equal expect, traiangle_rg(5)
+  end
+end
+
+# 左下側が直角の二等辺三角形を表示
+#
+# >> traiangle_lb(5)
+# => "*\n**\n***\n****\n*****\n"
+def traiangle_lb(n)
+  result = ''
+  (1..n).each do |i|
+    (1..i).each do |_j|
+      result += '*'
+    end
+    result += "\n"
+  end
+  result
+end
+
+# 右下側が直角の二等辺三角形を表示
+#
+# >> traiangle_rg(5)
+# =>"    *\n   **\n  ***\n ****\n*****\n"
+def traiangle_rg(n)
+  result = ''
+  (1..n).each do |i|
+    (1..n - i).each do
+      result += ' '
+    end
+    (1..i).each do
+      result += '*'
+    end
+    result += "\n"
+  end
+  result
+end
