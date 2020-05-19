@@ -21,6 +21,11 @@
 
 ### 構築
 
+```bash
+bundle install
+bundle exec minidoctest main.rb
+```
+
 **[⬆ back to top](#構成)**
 
 ### 配置
